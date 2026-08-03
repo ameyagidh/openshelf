@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: openshelf-mongo
+    # Host port 27018 (not the default 27017) so this can run alongside
+    # pulseboard's own Mongo container without a port clash.
+    ports:
+      - "27018:27017"
+    volumes:
+      - openshelf-mongo-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  openshelf-mongo-data:

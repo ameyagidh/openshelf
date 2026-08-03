@@ -1,0 +1,27 @@
+{
+  "name": "openshelf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Book discovery, shelves, and reviews (MERN)",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n SERVER,CLIENT -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "seed": "npm run seed -w server",
+    "test": "npm run test -w server && npm run test:e2e -w server",
+    "test:unit": "npm run test:unit -w server",
+    "test:integration": "npm run test:integration -w server",
+    "test:e2e": "npm run test:e2e -w server",
+    "lint": "npm run lint -w server && npm run lint -w client",
+    "screenshots": "node scripts/screenshots.mjs",
+    "build": "npm run build -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
