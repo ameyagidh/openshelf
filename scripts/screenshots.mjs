@@ -30,7 +30,12 @@ async function run() {
   await page.waitForTimeout(400);
   await shoot(page, '02-browse');
 
-  await page.locator('[data-testid^="book-card-"]').first().click();
+  // Open a book from the demo user's own "read" shelf rather than the first
+  // browse result — those have real reviews and co-shelvers, so the detail
+  // screenshot actually shows the reviews/recommendations features working.
+  await page.goto(`${BASE_URL}/shelves`);
+  await page.waitForSelector('[data-testid="shelf-read"]');
+  await page.locator('[data-testid="shelf-read"] + div [data-testid^="book-card-"]').first().click();
   await page.waitForURL(/\/books\//);
   await page.waitForTimeout(300);
   await shoot(page, '03-book-detail');

@@ -37,7 +37,7 @@ async function seed() {
   logger.info(`Imported ${books.length} books`);
 
   logger.info('Creating admin and demo users');
-  const admin = await User.create({
+  await User.create({
     email: env.seedAdmin.email,
     passwordHash: await User.hashPassword(env.seedAdmin.password),
     name: 'Portfolio Admin',
